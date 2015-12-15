@@ -230,7 +230,6 @@ namespace XeemAPI.Models
             {
                 return null;
             }
-            
         }
 
         public static User FindById(int id)
