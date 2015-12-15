@@ -102,6 +102,7 @@
       <LastGenOutput>Xeem.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <Content Include="Data\Xeem.edmx.diagram">
       <DependentUpon>Xeem.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\somee.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

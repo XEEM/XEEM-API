@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAtcYLrNYQQUug3Sd0zZdWGAAAAAACAAAAAAAQZgAAAAEAACAAAAAhCj5K23UzkW03WRXENHq4sSNr7dSmPpX4R0K4/ld+TAAAAAAOgAAAAAIAACAAAABcMd0HhrIkRL4d1g+/YDzYhpXPxrLrje+YpMXv1oqWjxAAAACFyz8PV14/SlqxMvFm8GiGQAAAAMSb+11j5M65GEiinfxKXxBkVK6VQwefFzUHqD4VxSV+mF6Cnf2hxQuNFXd31ZSZY8ySKRFFqx332FgTYbalhqQ=</EncryptedPassword>
+    <_PublishTargetUrl>ftp://www.xeem.somee.com/www.xeem.somee.com</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>12/14/2015 00:18:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>12/14/2015 00:13:45</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>12/14/2015 00:13:32</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>12/14/2015 00:13:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>12/14/2015 00:13:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>12/14/2015 00:13:40</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>12/14/2015 00:13:41</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>12/14/2015 00:13:41</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>12/14/2015 00:13:41</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>12/14/2015 00:13:41</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>12/14/2015 00:13:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>12/14/2015 00:13:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>12/14/2015 00:13:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>12/14/2015 00:13:42</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>12/14/2015 00:13:42</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>12/14/2015 00:13:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>12/14/2015 00:13:37</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>12/14/2015 00:13:37</publishTime>
+    </File>
+    <File Include="bin/XeemAPI.dll">
+      <publishTime>12/16/2015 00:48:24</publishTime>
+    </File>
+    <File Include="Data/Xeem.edmx.diagram">
+      <publishTime>12/16/2015 00:02:13</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/14/2015 00:13:27</publishTime>
+    </File>
+    <File Include="index.html">
+      <publishTime>12/16/2015 00:29:45</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/14/2015 00:18:12</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/16/2015 00:48:55</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
