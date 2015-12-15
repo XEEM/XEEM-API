@@ -134,9 +134,6 @@
     <Compile Include="Data\ShopQuote.cs">
       <DependentUpon>Xeem.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\sysdiagram.cs">
-      <DependentUpon>Xeem.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\SystemPrice.cs">
       <DependentUpon>Xeem.tt</DependentUpon>
     </Compile>
