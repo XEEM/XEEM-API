@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="XeemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CustomerTransportation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="transId" Type="Int32" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Transportation" Relationship="Self.FK_CustomerTransportation_Transportation" FromRole="CustomerTransportation" ToRole="Transportation" />
+    <NavigationProperty Name="User" Relationship="Self.FK_CustomerTransportation_User" FromRole="CustomerTransportation" ToRole="User" />
+    <NavigationProperty Name="MaintainanceHistories" Relationship="Self.FK_MaintainanceHistory_CustomerTransportation" FromRole="CustomerTransportation" ToRole="MaintainanceHistory" />
+  </EntityType>
+  <EntityType Name="Favorite">
+    <Key>
+      <PropertyRef Name="userId" />
+      <PropertyRef Name="shopId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="shopId" Type="Int32" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_Favorite_Shop" FromRole="Favorite" ToRole="Shop" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Favorite_User" FromRole="Favorite" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Quote">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ShopQuotes" Relationship="Self.FK_ShopQuotes_Quote" FromRole="Quote" ToRole="ShopQuotes" />
+  </EntityType>
+  <EntityType Name="QuotePrice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <Property Name="endDate" Type="DateTime" Precision="0" />
+    <Property Name="shopId" Type="Int32" />
+    <Property Name="quoteId" Type="Int32" />
+    <NavigationProperty Name="ShopQuote" Relationship="Self.FK_QuotePrices_ShopQuotes" FromRole="QuotePrices" ToRole="ShopQuotes" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="userId" Type="Int32" />
+    <Property Name="shopId" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_Request_Shop" FromRole="Request" ToRole="Shop" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="userId" />
+      <PropertyRef Name="shopId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <Property Name="shopId" Type="Int32" Nullable="false" />
+    <Property Name="rating" Type="Double" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_Review_Shop" FromRole="Review" ToRole="Shop" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Review_User" FromRole="Review" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="isAvailable" Type="Boolean" />
+    <Property Name="latitude" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="avatarUrl" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="ownerId" Type="Int32" />
+    <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_Shop" FromRole="Shop" ToRole="Favorite" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Request_Shop" FromRole="Shop" ToRole="Request" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Shop" FromRole="Shop" ToRole="Review" />
+    <NavigationProperty Name="MaintainanceHistories" Relationship="Self.FK_MaintainanceHistory_Shop" FromRole="Shop" ToRole="MaintainanceHistory" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Shop_User" FromRole="Shop" ToRole="User" />
+    <NavigationProperty Name="ShopQuotes" Relationship="Self.FK_ShopQuotes_Shop" FromRole="Shop" ToRole="ShopQuotes" />
+  </EntityType>
+  <EntityType Name="ShopQuote">
+    <Key>
+      <PropertyRef Name="shopId" />
+      <PropertyRef Name="quoteId" />
+    </Key>
+    <Property Name="shopId" Type="Int32" Nullable="false" />
+    <Property Name="quoteId" Type="Int32" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Quote" Relationship="Self.FK_ShopQuotes_Quote" FromRole="ShopQuotes" ToRole="Quote" />
+    <NavigationProperty Name="QuotePrices" Relationship="Self.FK_QuotePrices_ShopQuotes" FromRole="ShopQuotes" ToRole="QuotePrices" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_ShopQuotes_Shop" FromRole="ShopQuotes" ToRole="Shop" />
+  </EntityType>
+  <EntityType Name="SystemPrice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <Property Name="endDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Transportation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CustomerTransportations" Relationship="Self.FK_CustomerTransportation_Transportation" FromRole="Transportation" ToRole="CustomerTransportation" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="avatarUrl" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="birthday" Type="DateTime" Precision="0" />
+    <Property Name="latitude" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CustomerTransportations" Relationship="Self.FK_CustomerTransportation_User" FromRole="User" ToRole="CustomerTransportation" />
+    <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_User" FromRole="User" ToRole="Favorite" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Request_User" FromRole="User" ToRole="Request" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_User" FromRole="User" ToRole="Review" />
+    <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_User" FromRole="User" ToRole="Shop" />
+  </EntityType>
+  <EntityType Name="MaintainanceHistory">
+    <Key>
+      <PropertyRef Name="userTransportationId" />
+      <PropertyRef Name="shopId" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="userTransportationId" Type="Int32" Nullable="false" />
+    <Property Name="shopId" Type="Int32" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="cost" Type="Double" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CustomerTransportation" Relationship="Self.FK_MaintainanceHistory_CustomerTransportation" FromRole="MaintainanceHistory" ToRole="CustomerTransportation" />
+    <NavigationProperty Name="Shop" Relationship="Self.FK_MaintainanceHistory_Shop" FromRole="MaintainanceHistory" ToRole="Shop" />
+  </EntityType>
+  <Association Name="FK_CustomerTransportation_Transportation">
+    <End Role="Transportation" Type="Self.Transportation" Multiplicity="1" />
+    <End Role="CustomerTransportation" Type="Self.CustomerTransportation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transportation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CustomerTransportation">
+        <PropertyRef Name="transId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerTransportation_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="CustomerTransportation" Type="Self.CustomerTransportation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CustomerTransportation">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintainanceHistory_CustomerTransportation">
+    <End Role="CustomerTransportation" Type="Self.CustomerTransportation" Multiplicity="1" />
+    <End Role="MaintainanceHistory" Type="Self.MaintainanceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerTransportation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MaintainanceHistory">
+        <PropertyRef Name="userTransportationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Favorite_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Favorite">
+        <PropertyRef Name="shopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Favorite_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Favorite" Type="Self.Favorite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Favorite">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShopQuotes_Quote">
+    <End Role="Quote" Type="Self.Quote" Multiplicity="1" />
+    <End Role="ShopQuotes" Type="Self.ShopQuote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ShopQuotes">
+        <PropertyRef Name="quoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuotePrices_ShopQuotes">
+    <End Role="ShopQuotes" Type="Self.ShopQuote" Multiplicity="0..1" />
+    <End Role="QuotePrices" Type="Self.QuotePrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShopQuotes">
+        <PropertyRef Name="shopId" />
+        <PropertyRef Name="quoteId" />
+      </Principal>
+      <Dependent Role="QuotePrices">
+        <PropertyRef Name="shopId" />
+        <PropertyRef Name="quoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="shopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Request_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="shopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintainanceHistory_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="MaintainanceHistory" Type="Self.MaintainanceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MaintainanceHistory">
+        <PropertyRef Name="shopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Shop_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Shop">
+        <PropertyRef Name="ownerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShopQuotes_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="ShopQuotes" Type="Self.ShopQuote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ShopQuotes">
+        <PropertyRef Name="shopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="XeemEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CustomerTransportations" EntityType="Self.CustomerTransportation" />
+    <EntitySet Name="Favorites" EntityType="Self.Favorite" />
+    <EntitySet Name="Quotes" EntityType="Self.Quote" />
+    <EntitySet Name="QuotePrices" EntityType="Self.QuotePrice" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Shops" EntityType="Self.Shop" />
+    <EntitySet Name="ShopQuotes" EntityType="Self.ShopQuote" />
+    <EntitySet Name="SystemPrices" EntityType="Self.SystemPrice" />
+    <EntitySet Name="Transportations" EntityType="Self.Transportation" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="MaintainanceHistories" EntityType="Self.MaintainanceHistory" />
+    <AssociationSet Name="FK_CustomerTransportation_Transportation" Association="Self.FK_CustomerTransportation_Transportation">
+      <End Role="Transportation" EntitySet="Transportations" />
+      <End Role="CustomerTransportation" EntitySet="CustomerTransportations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerTransportation_User" Association="Self.FK_CustomerTransportation_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="CustomerTransportation" EntitySet="CustomerTransportations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintainanceHistory_CustomerTransportation" Association="Self.FK_MaintainanceHistory_CustomerTransportation">
+      <End Role="CustomerTransportation" EntitySet="CustomerTransportations" />
+      <End Role="MaintainanceHistory" EntitySet="MaintainanceHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Favorite_Shop" Association="Self.FK_Favorite_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="Favorite" EntitySet="Favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Favorite_User" Association="Self.FK_Favorite_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Favorite" EntitySet="Favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShopQuotes_Quote" Association="Self.FK_ShopQuotes_Quote">
+      <End Role="Quote" EntitySet="Quotes" />
+      <End Role="ShopQuotes" EntitySet="ShopQuotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuotePrices_ShopQuotes" Association="Self.FK_QuotePrices_ShopQuotes">
+      <End Role="ShopQuotes" EntitySet="ShopQuotes" />
+      <End Role="QuotePrices" EntitySet="QuotePrices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request_Shop" Association="Self.FK_Request_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Shop" Association="Self.FK_Review_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_User" Association="Self.FK_Review_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintainanceHistory_Shop" Association="Self.FK_MaintainanceHistory_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="MaintainanceHistory" EntitySet="MaintainanceHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Shop_User" Association="Self.FK_Shop_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Shop" EntitySet="Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShopQuotes_Shop" Association="Self.FK_ShopQuotes_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="ShopQuotes" EntitySet="ShopQuotes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

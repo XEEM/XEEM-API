@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52932981c112483bbac474fb6bf9e63d" Name="Diagram1">
+        <EntityTypeShape EntityType="XeemModel.CustomerTransportation" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Favorite" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Quote" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.QuotePrice" Width="1.5" PointX="7.5" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Request" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Review" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Shop" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.ShopQuote" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.SystemPrice" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.Transportation" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.User" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="XeemModel.MaintainanceHistory" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="XeemModel.FK_CustomerTransportation_Transportation" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_CustomerTransportation_User" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_MaintainanceHistory_CustomerTransportation" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Favorite_Shop" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Favorite_User" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_ShopQuotes_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_QuotePrices_ShopQuotes" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Request_Shop" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Request_User" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Review_Shop" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Review_User" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_MaintainanceHistory_Shop" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_Shop_User" ManuallyRouted="false" />
+        <AssociationConnector Association="XeemModel.FK_ShopQuotes_Shop" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
