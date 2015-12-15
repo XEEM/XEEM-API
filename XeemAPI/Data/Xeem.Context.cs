@@ -33,7 +33,6 @@ namespace XeemAPI.Data
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
         public virtual DbSet<ShopQuote> ShopQuotes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<SystemPrice> SystemPrices { get; set; }
         public virtual DbSet<Transportation> Transportations { get; set; }
         public virtual DbSet<User> Users { get; set; }

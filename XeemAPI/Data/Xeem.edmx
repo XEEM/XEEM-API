@@ -99,16 +99,6 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
           <Property Name="quoteId" Type="int" Nullable="false" />
           <Property Name="createdDate" Type="date" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="SystemPrice">
           <Key>
             <PropertyRef Name="id" />
@@ -321,7 +311,6 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShopQuotes" EntityType="Self.ShopQuotes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemPrice" EntityType="Self.SystemPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transportation" EntityType="Self.Transportation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -495,16 +484,6 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
           <NavigationProperty Name="Quote" Relationship="Self.FK_ShopQuotes_Quote" FromRole="ShopQuotes" ToRole="Quote" />
           <NavigationProperty Name="QuotePrices" Relationship="Self.FK_QuotePrices_ShopQuotes" FromRole="ShopQuotes" ToRole="QuotePrices" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_ShopQuotes_Shop" FromRole="ShopQuotes" ToRole="Shop" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="SystemPrice">
           <Key>
@@ -738,7 +717,6 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
           <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="Shops" EntityType="Self.Shop" />
           <EntitySet Name="ShopQuotes" EntityType="Self.ShopQuote" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="SystemPrices" EntityType="Self.SystemPrice" />
           <EntitySet Name="Transportations" EntityType="Self.Transportation" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -888,17 +866,6 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="quoteId" ColumnName="quoteId" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="XeemModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
