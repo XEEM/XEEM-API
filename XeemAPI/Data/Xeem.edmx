@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="XeemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CustomerTransportation">
           <Key>
             <PropertyRef Name="id" />
@@ -24,7 +24,7 @@
           <Property Name="createdDate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.MaintainanceHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MaintainanceHistory">
           <Key>
             <PropertyRef Name="userTransportationId" />
@@ -302,7 +302,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="XeemModelStoreContainer">
+        <EntityContainer Name="DataStoreContainer">
           <EntitySet Name="CustomerTransportation" EntityType="Self.CustomerTransportation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favorite" EntityType="Self.Favorite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quote" EntityType="Self.Quote" Schema="dbo" store:Type="Tables" />
@@ -384,7 +384,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="XeemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CustomerTransportation">
           <Key>
             <PropertyRef Name="id" />
@@ -783,9 +783,9 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="XeemModelStoreContainer" CdmEntityContainer="XeemEntities">
+        <EntityContainerMapping StorageEntityContainer="DataStoreContainer" CdmEntityContainer="XeemEntities">
           <EntitySetMapping Name="CustomerTransportations">
-            <EntityTypeMapping TypeName="XeemModel.CustomerTransportation">
+            <EntityTypeMapping TypeName="Data.CustomerTransportation">
               <MappingFragment StoreEntitySet="CustomerTransportation">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="transId" ColumnName="transId" />
@@ -795,7 +795,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Favorites">
-            <EntityTypeMapping TypeName="XeemModel.Favorite">
+            <EntityTypeMapping TypeName="Data.Favorite">
               <MappingFragment StoreEntitySet="Favorite">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
@@ -804,7 +804,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Quotes">
-            <EntityTypeMapping TypeName="XeemModel.Quote">
+            <EntityTypeMapping TypeName="Data.Quote">
               <MappingFragment StoreEntitySet="Quote">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -812,7 +812,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QuotePrices">
-            <EntityTypeMapping TypeName="XeemModel.QuotePrice">
+            <EntityTypeMapping TypeName="Data.QuotePrice">
               <MappingFragment StoreEntitySet="QuotePrices">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="price" ColumnName="price" />
@@ -824,7 +824,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
-            <EntityTypeMapping TypeName="XeemModel.Request">
+            <EntityTypeMapping TypeName="Data.Request">
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
@@ -834,7 +834,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="XeemModel.Review">
+            <EntityTypeMapping TypeName="Data.Review">
               <MappingFragment StoreEntitySet="Review">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
@@ -844,7 +844,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shops">
-            <EntityTypeMapping TypeName="XeemModel.Shop">
+            <EntityTypeMapping TypeName="Data.Shop">
               <MappingFragment StoreEntitySet="Shop">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -861,7 +861,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShopQuotes">
-            <EntityTypeMapping TypeName="XeemModel.ShopQuote">
+            <EntityTypeMapping TypeName="Data.ShopQuote">
               <MappingFragment StoreEntitySet="ShopQuotes">
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="quoteId" ColumnName="quoteId" />
@@ -870,7 +870,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SystemPrices">
-            <EntityTypeMapping TypeName="XeemModel.SystemPrice">
+            <EntityTypeMapping TypeName="Data.SystemPrice">
               <MappingFragment StoreEntitySet="SystemPrice">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="price" ColumnName="price" />
@@ -880,7 +880,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transportations">
-            <EntityTypeMapping TypeName="XeemModel.Transportation">
+            <EntityTypeMapping TypeName="Data.Transportation">
               <MappingFragment StoreEntitySet="Transportation">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -889,7 +889,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="XeemModel.User">
+            <EntityTypeMapping TypeName="Data.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -906,7 +906,7 @@ warning 6002: The table/view 'Xeem.dbo.MaintainanceHistory' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaintainanceHistories">
-            <EntityTypeMapping TypeName="XeemModel.MaintainanceHistory">
+            <EntityTypeMapping TypeName="Data.MaintainanceHistory">
               <MappingFragment StoreEntitySet="MaintainanceHistory">
                 <ScalarProperty Name="userTransportationId" ColumnName="userTransportationId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />

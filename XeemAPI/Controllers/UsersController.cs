@@ -11,29 +11,8 @@ namespace XeemAPI.Controllers
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        [Route("authenticate")]
-        [HttpPost]
-        public IHttpActionResult Authenticate()
-        {
-            var request = HttpContext.Current.Request;
-            var email = request["email"];
-            var password = request["password"];
-
-            if (email == null || password == null)
-            {
-                return NotFound();
-            }
-
-            var token = Models.User.Authenticate(email, password);
-            if (token == null)
-            {
-                return Unauthorized();
-            }
-
-            return Ok(token);
-        }
-
         // GET: api/Users
+        [Route("")]
         public IHttpActionResult Get()
         {
             var users = Models.User.FindAll();
