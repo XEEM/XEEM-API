@@ -11,13 +11,15 @@ namespace XeemAPI.Controllers
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
+        [Route("")]
+        [HttpGet]
         public IHttpActionResult GetCurrentUserInfo()
         {
             var request = HttpContext.Current.Request;
             var token = request["api_token"];
             int id;
 
-            if (int.TryParse(token, out id))
+            if (!int.TryParse(token, out id))
             {
                 return Unauthorized();
             }
