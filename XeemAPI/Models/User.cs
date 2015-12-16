@@ -22,6 +22,7 @@ namespace XeemAPI.Models
         DateTime? birthday;
         string latitude;
         string longitude;
+        List<Transportation> transporations;
 
         [DataMember]
         public int Id
@@ -167,6 +168,20 @@ namespace XeemAPI.Models
             }
         }
 
+        [DataMember]
+        public List<Transportation> Transporations
+        {
+            get
+            {
+                return transporations;
+            }
+
+            set
+            {
+                transporations = value;
+            }
+        }
+
         public static explicit operator User(Data.User dto)
         {
             User user = new User();
@@ -176,6 +191,16 @@ namespace XeemAPI.Models
             user.name = dto.name;
             user.password = dto.password;
             user.phone = dto.phone;
+            user.email = dto.email;
+            user.avatarUrl = dto.avatarUrl;
+            user.birthday = dto.birthday;
+            user.address = dto.address;
+
+            user.transporations = new List<Transportation>();
+            foreach (var trans in dto.CustomerTransportations)
+            {
+                user.transporations.Add((Transportation)trans.Transportation);
+            }
 
             return user;
         }
@@ -237,11 +262,13 @@ namespace XeemAPI.Models
             using (var model = new Data.XeemEntities())
             {
                 var user = model.Users.Find(id);
-
+                
                 if (user == null)
                     return null;
 
-                return (User)user;
+                var result = (User)user;
+
+                return result;
             }
         }
 

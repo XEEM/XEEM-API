@@ -10,6 +10,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <_PublishTargetUrl>ftp://www.xeem.somee.com/www.xeem.somee.com</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="Assets/Avatars/hatu.jpg">
+      <publishTime>12/16/2015 17:20:52</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>12/14/2015 00:18:08</publishTime>
     </File>
@@ -68,22 +71,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/14/2015 00:13:37</publishTime>
     </File>
     <File Include="bin/XeemAPI.dll">
-      <publishTime>12/16/2015 15:41:23</publishTime>
+      <publishTime>12/16/2015 17:28:27</publishTime>
     </File>
     <File Include="Data/Xeem.edmx.diagram">
-      <publishTime>12/16/2015 15:38:09</publishTime>
+      <publishTime>12/16/2015 16:02:25</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/14/2015 00:13:27</publishTime>
     </File>
     <File Include="index.html">
-      <publishTime>12/16/2015 00:29:45</publishTime>
+      <publishTime>12/16/2015 16:02:25</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>12/16/2015 06:01:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/16/2015 15:41:39</publishTime>
+      <publishTime>12/16/2015 17:27:45</publishTime>
     </File>
   </ItemGroup>
 </Project>
