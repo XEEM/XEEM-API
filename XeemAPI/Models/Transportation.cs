@@ -7,11 +7,16 @@ using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
+    [DataContract]
     public enum TransportationType
     {
+        [EnumMember]
         Bike = 'B',
+        [EnumMember]
         Car = 'C',
+        [EnumMember]
         Scooter = 'S',
+        [EnumMember]
         Motorbike = 'M'
     }
 

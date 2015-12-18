@@ -13,6 +13,10 @@ namespace XeemAPI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            config.Formatters.JsonFormatter
+                .SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+            var enumConverter = new Newtonsoft.Json.Converters.StringEnumConverter();
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(enumConverter);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

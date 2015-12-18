@@ -184,6 +184,9 @@ namespace XeemAPI.Models
 
         public static explicit operator User(Data.User dto)
         {
+            if (dto == null)
+                return null;
+
             User user = new User();
             user.id = dto.id;
             user.latitude = dto.latitude;
