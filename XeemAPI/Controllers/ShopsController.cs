@@ -35,15 +35,27 @@ namespace XeemAPI.Controllers
             return Ok(shops);
             
         }
-        [Route("request")]
+        [Route("{shopId}/request")]
         [HttpPost]
-        public IHttpActionResult RequestShop()
+        public IHttpActionResult RequestShop(int shopId)
         {
             var request = HttpContext.Current.Request;
             var token = request["api_token"];
-            var shopId = request["shop_id"];
 
-            return Ok();
+            int userId;
+            if (!int.TryParse(token, out userId))
+            {
+                return Unauthorized();
+            }
+
+            string requestToken = Shop.Request(userId, shopId);
+
+            if(requestToken == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(requestToken);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
@@ -299,9 +300,27 @@ namespace XeemAPI.Models
             }
         }
 
-        public static bool Request(int userId)
+        public static string Request(int userId, int shopId)
         {
-            return false;
+            var request = new Data.Request();
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    request.userId = userId;
+                    request.shopId = shopId;
+                    request.createdDate = DateTime.Now;
+
+                    context.Requests.Add(request);
+                    context.SaveChanges();
+                }
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+
+            return request.id.ToString();
         }
 
         public static Shop GetShopRequestStatus(int userId)
