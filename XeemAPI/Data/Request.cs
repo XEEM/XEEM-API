@@ -18,6 +18,7 @@ namespace XeemAPI.Data
         public Nullable<int> shopId { get; set; }
         public Nullable<System.DateTime> createdDate { get; set; }
         public int id { get; set; }
+        public string status { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual User User { get; set; }

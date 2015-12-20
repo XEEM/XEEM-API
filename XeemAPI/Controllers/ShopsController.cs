@@ -57,5 +57,59 @@ namespace XeemAPI.Controllers
 
             return Ok(requestToken);
         }
+
+        [Route("{shopId}/requests/{requestToken}/status")]
+        [HttpGet]
+        public IHttpActionResult GetRequestStatus(int shopId, string requestToken)
+        {
+            var request = HttpContext.Current.Request;
+            var token = request["api_token"];
+            int userId;
+            if (!int.TryParse(token, out userId))
+            {
+                return Unauthorized();
+            }
+            
+            int requestId;
+            if (!int.TryParse(requestToken, out requestId))
+            {
+                return Unauthorized();
+            }
+            var status = Shop.GetShopRequestStatus(requestId);
+
+            if (status == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(status);
+        }
+
+        [Route("{shopId}/requests/{requestToken}/accept")]
+        [HttpPost]
+        public IHttpActionResult AcceptRequest(int shopId, string requestToken)
+        {
+            var request = HttpContext.Current.Request;
+            var token = request["api_token"];
+            int userId;
+            if (!int.TryParse(token, out userId))
+            {
+                return Unauthorized();
+            }
+
+            int requestId;
+            if (!int.TryParse(requestToken, out requestId))
+            {
+                return Unauthorized();
+            }
+            var user = Shop.AcceptRequest(requestId);
+
+            if (user == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(user);
+        }
     }
 }

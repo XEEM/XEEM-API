@@ -8,6 +8,19 @@ using XeemAPI.Data;
 namespace XeemAPI.Models
 {
     [DataContract]
+    public enum RequestStatus
+    {
+        [EnumMember]
+        Waiting = 'W',
+        [EnumMember]
+        Accepted = 'A',
+        [EnumMember]
+        Finished = 'F',
+        [EnumMember]
+        Canceled = 'C'
+    }
+
+    [DataContract]
     public enum ShopType
     {
         [EnumMember(Value = "Gas Statiion")]
@@ -310,7 +323,8 @@ namespace XeemAPI.Models
                     request.userId = userId;
                     request.shopId = shopId;
                     request.createdDate = DateTime.Now;
-
+                    request.status = new string((char)RequestStatus.Waiting, 1);
+                    
                     context.Requests.Add(request);
                     context.SaveChanges();
                 }
@@ -323,9 +337,44 @@ namespace XeemAPI.Models
             return request.id.ToString();
         }
 
-        public static Shop GetShopRequestStatus(int userId)
+        public static RequestStatus? GetShopRequestStatus(int requestId)
         {
-            return null;
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var q = from r in context.Requests
+                            where r.id == requestId
+                            select r;
+
+                    var result = (RequestStatus?)q.First().status[0];
+                    return result;
+                }
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public static User AcceptRequest(int requestToken)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var request = context.Requests.Find(requestToken);
+                    request.status = new string((char)RequestStatus.Accepted, 1);
+                    var user = (User)request.User;
+                    context.SaveChanges();
+
+                    return user;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

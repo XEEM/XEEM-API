@@ -63,6 +63,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="shopId" Type="int" />
           <Property Name="createdDate" Type="date" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -437,6 +438,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Request_Shop" FromRole="Request" ToRole="Shop" />
           <NavigationProperty Name="User" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
+          <Property Name="status" Type="String" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -825,6 +827,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="Data.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />

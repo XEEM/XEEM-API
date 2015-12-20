@@ -1,2 +1,4 @@
 XeemAPI/obj
 XeemAPI/bin
+*.
+.suo
