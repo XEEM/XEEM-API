@@ -121,7 +121,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="20" />
@@ -438,7 +438,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Request_Shop" FromRole="Request" ToRole="Shop" />
           <NavigationProperty Name="User" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
-          <Property Name="status" Type="String" />
+          <Property Name="status" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
         </EntityType>
         <EntityType Name="Review">
           <Key>

@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
@@ -317,6 +318,48 @@ namespace XeemAPI.Models
             }
 
             return true;
+        }
+
+        public static Transportation AddTransportation(int userId, Transportation trans)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var dto = trans.ExportToDataObject();
+                    // check if the transporation is exists
+                    var q = from t in context.Transportations
+                                  where t.name == dto.name && t.type == dto.type
+                                  select t;
+                    
+                    if(q.Count() == 0)
+                    {
+                        // if not exists, insert id
+                        context.Transportations.Add(dto);
+                        context.SaveChanges();    
+                    } else
+                    {
+                        dto = q.First();
+                    }
+
+                    // get the transporation id
+                    // get the user
+                    var user = context.Users.Find(userId);
+                    // add it to user's transporatation
+                    var customerTrans = new CustomerTransportation();
+                    customerTrans.userId = userId;
+                    customerTrans.transId = dto.id;
+                    customerTrans.createdDate = DateTime.Now;
+
+                    user.CustomerTransportations.Add(customerTrans);
+                    context.SaveChanges();
+
+                    return trans;
+                }
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

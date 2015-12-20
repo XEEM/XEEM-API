@@ -70,20 +70,32 @@ namespace XeemAPI.Controllers
         }
 
         // PUT: api/Users/5
+        [Route("")]
         [HttpPut]
-        public IHttpActionResult Put([FromBody]string email, [FromBody]string phone, [FromBody]string password)
+        public IHttpActionResult RegisterUser()
         {
+            var request = HttpContext.Current.Request;
+
             var user = new Models.User();
-            user.Email = email;
-            user.Phone = phone;
-            user.Password = password;
+            if (request["email"] == null || request["password"] == null)
+            {
+                return BadRequest();
+            }
+
+            user.Email = request["email"];
+            user.Phone = request["phone"];
+            user.Password = request["password"];
+            user.Birthday = DateTime.Parse(request["birthday"]);
+            user.Name = request["name"];
+            user.Address = request["address"];
+            user.AvatarUrl = request["avatarUrl"];
 
             if (!Models.User.Insert(user))
             {
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(user);
         }
     }
 }
