@@ -37,37 +37,7 @@ namespace XeemAPI.Controllers
         }
 
         // POST: api/Users
-        [HttpPost]
-        public IHttpActionResult Post(int id, [FromUri]Models.User user)
-        {
-            var updatedProperties = new List<string>();
-            if(user.Name != null)
-            {
-                updatedProperties.Add("name");
-            }
-
-            if(user.Phone != null)
-            {
-                updatedProperties.Add("phone");
-            }
-
-            if(user.Address != null)
-            {
-                updatedProperties.Add("address");
-            }
-
-            if(user.Birthday != null)
-            {
-                updatedProperties.Add("birthday");
-            }
-            
-            if(!Models.User.Update(user, updatedProperties))
-            {
-                return NotFound();
-            }
-
-            return Ok();
-        }
+        
 
         // PUT: api/Users/5
         [Route("")]

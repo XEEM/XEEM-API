@@ -295,29 +295,40 @@ namespace XeemAPI.Models
             return true;
         }
 
-        public static bool Update(User user, List<string> updatedProperties)
+        public static User Update(User user, List<string> updatedProperties)
         {
+            Data.User dto = null;
             try {
                 using (var model = new Data.XeemEntities())
                 {
                     var objectContext = ((IObjectContextAdapter)model).ObjectContext;
-                    var dto = user.ExportToDataObject();
-                    model.Users.Attach(dto);
-                    var entry = objectContext.ObjectStateManager.GetObjectStateEntry(dto);
-                    
-                    foreach(var columnName in updatedProperties)
-                    {
-                        entry.SetModifiedProperty(columnName);
-                    }
+                    dto = user.ExportToDataObject();
 
-                    model.SaveChanges();                    
+                    // get old file url;
+                    var q = from u in model.Users
+                            where u.id == user.id
+                            select u.avatarUrl;
+                    var oldUser = q.First();
+                    if (FileHandler.RemoveFile(oldUser))
+                    {
+                        //oldUser = dto;
+                        model.Users.Attach(dto);
+                        var entry = objectContext.ObjectStateManager.GetObjectStateEntry(dto);
+
+                        foreach (var columnName in updatedProperties)
+                        {
+                            entry.SetModifiedProperty(columnName);
+                        }
+
+                        model.SaveChanges();
+                    }                    
                 }
             }catch(Exception e)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return (User)dto;
         }
 
         public static Transportation AddTransportation(int userId, Transportation trans)
