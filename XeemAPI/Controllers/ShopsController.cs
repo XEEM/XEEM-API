@@ -14,7 +14,7 @@ namespace XeemAPI.Controllers
     {
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetAllShops()
+        public IHttpActionResult GetShops()
         {
             var request = HttpContext.Current.Request;
             var token = request["api_token"];
@@ -25,7 +25,18 @@ namespace XeemAPI.Controllers
                 return Unauthorized();
             }
 
-            var shops = Shop.GetShops(id);
+            var filtersParam = request["filters"];
+
+            Shop[] shops = null;
+
+            if(filtersParam == null)
+            {
+                shops = Shop.GetShops(id);
+            } else
+            {
+                var filters = filtersParam.Split('-');
+                shops = Shop.GetShopsByFilters(id, filters);
+            }
 
             if (shops == null)
             {

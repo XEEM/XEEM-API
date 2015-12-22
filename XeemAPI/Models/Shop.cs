@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Web;
 using XeemAPI.Data;
 
@@ -25,10 +27,14 @@ namespace XeemAPI.Models
     {
         [EnumMember(Value = "Gas Statiion")]
         GasStation = 'G',
-        [EnumMember(Value ="Repair Shop")]
-        RepairShop = 'R',
-        [EnumMember(Value ="Spare Parts Shop")]
-        SparePartsShop = 'S'
+        [EnumMember(Value ="Car Repair Shop")]
+        CarRepairShop = 'C',
+        [EnumMember(Value = "Scooter Repair Shop")]
+        ScooterRepairShop = 'S',
+        [EnumMember(Value = "Motorcycle Repair Shop")]
+        MotorcycleRepairShop = 'M',
+        [EnumMember(Value = "Bike Repair Shop")]
+        BikeRepairShop = 'B'
     }
 
     [DataContract]
@@ -297,6 +303,33 @@ namespace XeemAPI.Models
             return dto;
         }
 
+        public static Shop[] GetShopsByFilters(int userId, String[] filters)
+        {
+            try
+            {
+                using (var context = new Data.XeemEntities())
+                {
+                    //var objectContext = (context as System.Data.Entity.Infrastructure.IObjectContextAdapter).ObjectContext;
+
+                    var queryBuilder = new StringBuilder("select s.* from Shop s where ");
+
+                    foreach (var filter in filters)
+                    {
+                        queryBuilder.AppendFormat(" s.type = '{0}' or ", filter);
+                    }
+
+                    queryBuilder.Remove(queryBuilder.Length - 4, 3);
+                    var shops = context.Shops.SqlQuery(queryBuilder.ToString()).ToArray();
+
+                    var result = Array.ConvertAll(shops, item => Convert(item, userId));
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public static Shop[] GetShops(int userId)
         {
             try
