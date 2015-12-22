@@ -4,28 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a0dd5d5790eb4d8bb24e3f3253344f04" Name="Diagram1">
-        <EntityTypeShape EntityType="Data.CustomerTransportation" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Favorite" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Quote" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.QuotePrice" Width="1.5" PointX="7.5" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Request" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Review" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Shop" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.ShopQuote" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
+      <Diagram DiagramId="d44216688b2f4009a1c8ba1757fc3a37" Name="Diagram1">
+        <EntityTypeShape EntityType="Data.CustomerTransportation" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Favorite" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Quote" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.QuotePrice" Width="1.5" PointX="7.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Request" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Review" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Shop" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.ShopQuote" Width="1.5" PointX="5.25" PointY="17.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Data.SystemPrice" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.Transportation" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.User" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Data.MaintainanceHistory" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.Transportation" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.User" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Data.MaintainanceHistory" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
         <AssociationConnector Association="Data.FK_CustomerTransportation_Transportation" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_CustomerTransportation_User" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_MaintainanceHistory_CustomerTransportation" ManuallyRouted="false" />
+        <AssociationConnector Association="Data.FK_Request_CustomerTransportation" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Favorite_Shop" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Favorite_User" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_ShopQuotes_Quote" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_QuotePrices_ShopQuotes" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Request_Shop" ManuallyRouted="false" />
-        <AssociationConnector Association="Data.FK_Request_User" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Review_Shop" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Review_User" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_MaintainanceHistory_Shop" ManuallyRouted="false" />

@@ -19,7 +19,6 @@ namespace XeemAPI.Data
         {
             this.CustomerTransportations = new HashSet<CustomerTransportation>();
             this.Favorites = new HashSet<Favorite>();
-            this.Requests = new HashSet<Request>();
             this.Reviews = new HashSet<Review>();
             this.Shops = new HashSet<Shop>();
         }
@@ -40,8 +39,6 @@ namespace XeemAPI.Data
         public virtual ICollection<CustomerTransportation> CustomerTransportations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favorite> Favorites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Request> Requests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

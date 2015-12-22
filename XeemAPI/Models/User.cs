@@ -24,7 +24,7 @@ namespace XeemAPI.Models
         string latitude;
         string longitude;
         List<Transportation> transporations;
-
+        
         [DataMember]
         public int Id
         {
@@ -203,7 +203,7 @@ namespace XeemAPI.Models
             user.transporations = new List<Transportation>();
             foreach (var trans in dto.CustomerTransportations)
             {
-                user.transporations.Add((Transportation)trans.Transportation);
+                user.transporations.Add(Transportation.Convert(trans));
             }
 
             return user;

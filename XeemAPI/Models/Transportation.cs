@@ -26,6 +26,7 @@ namespace XeemAPI.Models
         private int id;
         private string name;
         private TransportationType type;
+        private List<Request> requests;
 
         [DataMember]
         public int Id
@@ -40,7 +41,6 @@ namespace XeemAPI.Models
                 id = value;
             }
         }
-
         [DataMember]
         public string Name
         {
@@ -54,7 +54,6 @@ namespace XeemAPI.Models
                 name = value;
             }
         }
-
         [DataMember]
         public TransportationType Type
         {
@@ -68,15 +67,34 @@ namespace XeemAPI.Models
                 type = value;
             }
         }
+        [DataMember]
+        public List<Request> Requests
+        {
+            get
+            {
+                return requests;
+            }
 
-        public static explicit operator Transportation(Data.Transportation dto)
+            set
+            {
+                requests = value;
+            }
+        }
+
+        public static Transportation Convert(Data.CustomerTransportation dto)
         {
             var result = new Transportation();
 
             result.Id = dto.id;
-            result.Name = dto.name;
-            result.Type = (TransportationType)dto.type[0];
-
+            result.Name = dto.Transportation.name;
+            result.Type = (TransportationType)dto.Transportation.type[0];
+            result.requests = new List<Models.Request>();
+            
+            foreach(var request in dto.Requests)
+            {
+                result.requests.Add(Models.Request.Convert(request));
+            }
+            
             return result;
         }
 

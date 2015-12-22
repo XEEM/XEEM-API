@@ -59,7 +59,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="userId" Type="int" />
+          <Property Name="userTransId" Type="int" />
           <Property Name="shopId" Type="int" />
           <Property Name="createdDate" Type="date" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -67,13 +67,14 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
         </EntityType>
         <EntityType Name="Review">
           <Key>
-            <PropertyRef Name="userId" />
-            <PropertyRef Name="shopId" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="userId" Type="int" Nullable="false" />
           <Property Name="shopId" Type="int" Nullable="false" />
           <Property Name="rating" Type="float" />
           <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -219,6 +220,18 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_CustomerTransportation">
+          <End Role="CustomerTransportation" Type="Self.CustomerTransportation" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTransportation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="userTransId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Request_Shop">
           <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
@@ -228,18 +241,6 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="shopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Request_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,12 +353,12 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             <End Role="ShopQuotes" EntitySet="ShopQuotes" />
             <End Role="QuotePrices" EntitySet="QuotePrices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Shop" Association="Self.FK_Request_Shop">
-            <End Role="Shop" EntitySet="Shop" />
+          <AssociationSet Name="FK_Request_CustomerTransportation" Association="Self.FK_Request_CustomerTransportation">
+            <End Role="CustomerTransportation" EntitySet="CustomerTransportation" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_Request_Shop" Association="Self.FK_Request_Shop">
+            <End Role="Shop" EntitySet="Shop" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
           <AssociationSet Name="FK_Review_Shop" Association="Self.FK_Review_Shop">
@@ -392,10 +393,11 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="transId" Type="Int32" Nullable="false" />
           <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Transportation" Relationship="Self.FK_CustomerTransportation_Transportation" FromRole="CustomerTransportation" ToRole="Transportation" />
           <NavigationProperty Name="User" Relationship="Self.FK_CustomerTransportation_User" FromRole="CustomerTransportation" ToRole="User" />
           <NavigationProperty Name="MaintainanceHistories" Relationship="Self.FK_MaintainanceHistory_CustomerTransportation" FromRole="CustomerTransportation" ToRole="MaintainanceHistory" />
+          <NavigationProperty Name="Requests" Relationship="Self.FK_Request_CustomerTransportation" FromRole="CustomerTransportation" ToRole="Request" />
         </EntityType>
         <EntityType Name="Favorite">
           <Key>
@@ -420,7 +422,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="price" Type="Double" />
           <Property Name="startDate" Type="DateTime" Precision="0" />
           <Property Name="endDate" Type="DateTime" Precision="0" />
@@ -432,18 +434,17 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="userId" Type="Int32" />
+          <Property Name="userTransId" Type="Int32" />
           <Property Name="shopId" Type="Int32" />
           <Property Name="createdDate" Type="DateTime" Precision="0" />
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="CustomerTransportation" Relationship="Self.FK_Request_CustomerTransportation" FromRole="Request" ToRole="CustomerTransportation" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Request_Shop" FromRole="Request" ToRole="Shop" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
-          <Property Name="status" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
-            <PropertyRef Name="userId" />
-            <PropertyRef Name="shopId" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="shopId" Type="Int32" Nullable="false" />
@@ -451,12 +452,14 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Review_Shop" FromRole="Review" ToRole="Shop" />
           <NavigationProperty Name="User" Relationship="Self.FK_Review_User" FromRole="Review" ToRole="User" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -499,7 +502,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="CustomerTransportations" Relationship="Self.FK_CustomerTransportation_Transportation" FromRole="Transportation" ToRole="CustomerTransportation" />
@@ -508,7 +511,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -521,7 +524,6 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="longitude" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CustomerTransportations" Relationship="Self.FK_CustomerTransportation_User" FromRole="User" ToRole="CustomerTransportation" />
           <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorite_User" FromRole="User" ToRole="Favorite" />
-          <NavigationProperty Name="Requests" Relationship="Self.FK_Request_User" FromRole="User" ToRole="Request" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_User" FromRole="User" ToRole="Review" />
           <NavigationProperty Name="Shops" Relationship="Self.FK_Shop_User" FromRole="User" ToRole="Shop" />
         </EntityType>
@@ -572,6 +574,18 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             </Principal>
             <Dependent Role="MaintainanceHistory">
               <PropertyRef Name="userTransportationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_CustomerTransportation">
+          <End Role="CustomerTransportation" Type="Self.CustomerTransportation" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTransportation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="userTransId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -634,18 +648,6 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="shopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Request_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -734,6 +736,10 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             <End Role="CustomerTransportation" EntitySet="CustomerTransportations" />
             <End Role="MaintainanceHistory" EntitySet="MaintainanceHistories" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_CustomerTransportation" Association="Self.FK_Request_CustomerTransportation">
+            <End Role="CustomerTransportation" EntitySet="CustomerTransportations" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
           <AssociationSet Name="FK_Favorite_Shop" Association="Self.FK_Favorite_Shop">
             <End Role="Shop" EntitySet="Shops" />
             <End Role="Favorite" EntitySet="Favorites" />
@@ -752,10 +758,6 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           </AssociationSet>
           <AssociationSet Name="FK_Request_Shop" Association="Self.FK_Request_Shop">
             <End Role="Shop" EntitySet="Shops" />
-            <End Role="Request" EntitySet="Requests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
-            <End Role="User" EntitySet="Users" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_Review_Shop" Association="Self.FK_Review_Shop">
@@ -827,17 +829,19 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="Data.Request">
               <MappingFragment StoreEntitySet="Request">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userTransId" ColumnName="userTransId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="Data.Review">
               <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="rating" ColumnName="rating" />

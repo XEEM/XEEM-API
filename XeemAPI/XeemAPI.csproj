@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Models\FileHandler.cs" />
     <Compile Include="Models\Quote.cs" />
+    <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Transportation.cs" />

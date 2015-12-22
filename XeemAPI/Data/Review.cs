@@ -18,6 +18,8 @@ namespace XeemAPI.Data
         public int shopId { get; set; }
         public Nullable<double> rating { get; set; }
         public string description { get; set; }
+        public Nullable<System.DateTime> createdDate { get; set; }
+        public int id { get; set; }
     
         public virtual Shop Shop { get; set; }
         public virtual User User { get; set; }

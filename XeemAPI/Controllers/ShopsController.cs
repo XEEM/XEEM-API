@@ -122,5 +122,37 @@ namespace XeemAPI.Controllers
 
             return Ok(user);
         }
+
+        [Route("{shopId}/review")]
+        [HttpPut]
+        public IHttpActionResult AddReview(int shopId)
+        {
+            var request = HttpContext.Current.Request;
+            var token = request["api_token"];
+            int userId;
+            if (!int.TryParse(token, out userId))
+            {
+                return Unauthorized();
+            }
+
+            var review = new Models.Review();
+            float rating;
+            if(!float.TryParse(request["rating"], out rating))
+            {
+                return BadRequest();
+            }
+            review.Rating = rating;
+            review.Description = request["description"];
+            review.Reviewer = new Models.User();
+            review.Reviewer.Id = userId;
+            review = Review.AddReview(shopId, review);
+
+            if(review == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(review);
+        }
     }
 }

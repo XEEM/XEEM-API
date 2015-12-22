@@ -9,18 +9,7 @@ using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
-    [DataContract]
-    public enum RequestStatus
-    {
-        [EnumMember]
-        Waiting = 'W',
-        [EnumMember]
-        Accepted = 'A',
-        [EnumMember]
-        Finished = 'F',
-        [EnumMember]
-        Canceled = 'C'
-    }
+    
 
     [DataContract]
     public enum ShopType
@@ -282,7 +271,7 @@ namespace XeemAPI.Models
                 result.reviews.Add((Review)dtoReview);
             }
 
-            result.rating = result.reviews.Select(r => r.Rating).DefaultIfEmpty(0).Average();
+            result.rating = (float)result.reviews.Select(r => r.Rating).DefaultIfEmpty(0).Average();
             result.isFavorited = dto.Favorites.Where(f => f.userId == userId).Count() == 1;
             
             return result;
@@ -346,14 +335,14 @@ namespace XeemAPI.Models
             }
         }
 
-        public static string Request(int userId, int shopId)
+        public static string Request(int customerTransId, int shopId)
         {
             var request = new Data.Request();
             try
             {
                 using (var context = new XeemEntities())
                 {
-                    request.userId = userId;
+                    request.userTransId = customerTransId;
                     request.shopId = shopId;
                     request.createdDate = DateTime.Now;
                     request.status = new string((char)RequestStatus.Waiting, 1);
@@ -398,7 +387,7 @@ namespace XeemAPI.Models
                 {
                     var request = context.Requests.Find(requestToken);
                     request.status = new string((char)RequestStatus.Accepted, 1);
-                    var user = (User)request.User;
+                    var user = (User)request.CustomerTransportation.User;
                     context.SaveChanges();
 
                     return user;
@@ -409,5 +398,7 @@ namespace XeemAPI.Models
                 return null;
             }
         }
+
+        
     }
 }

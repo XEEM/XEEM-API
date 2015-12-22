@@ -18,6 +18,7 @@ namespace XeemAPI.Data
         public CustomerTransportation()
         {
             this.MaintainanceHistories = new HashSet<MaintainanceHistory>();
+            this.Requests = new HashSet<Request>();
         }
     
         public int userId { get; set; }
@@ -29,5 +30,7 @@ namespace XeemAPI.Data
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MaintainanceHistory> MaintainanceHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
     [DataContract]
     public class Review
     {
-        private float rating;
+        private float? rating;
         private string description;
         private User reviewer;
 
         [DataMember]
-        public float Rating
+        public float? Rating
         {
             get
             {
@@ -64,6 +65,38 @@ namespace XeemAPI.Models
             result.reviewer = (User)dto.User;
 
             return result;
+        }
+
+        public Data.Review ExportDbObject(int shopId)
+        {
+            var dto = new Data.Review();
+            dto.shopId = shopId;
+            dto.rating = this.rating;
+            dto.description = this.description;
+            dto.userId = this.reviewer.Id;
+
+            return dto;
+        }
+
+        public static Review AddReview(int shopId, Review review)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var dto = review.ExportDbObject(shopId);
+                    dto.createdDate = DateTime.Now;
+                    context.Reviews.Add(dto);
+
+                    context.SaveChanges();
+
+                    return review;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }
