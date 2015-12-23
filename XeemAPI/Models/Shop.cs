@@ -14,15 +14,15 @@ namespace XeemAPI.Models
     [DataContract]
     public enum ShopType
     {
-        [EnumMember(Value = "Gas Statiion")]
+        [EnumMember]
         GasStation = 'G',
-        [EnumMember(Value ="Car Repair Shop")]
+        [EnumMember]
         CarRepairShop = 'C',
-        [EnumMember(Value = "Scooter Repair Shop")]
+        [EnumMember]
         ScooterRepairShop = 'S',
-        [EnumMember(Value = "Motorcycle Repair Shop")]
+        [EnumMember]
         MotorcycleRepairShop = 'M',
-        [EnumMember(Value = "Bike Repair Shop")]
+        [EnumMember]
         BikeRepairShop = 'B'
     }
 
