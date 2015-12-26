@@ -54,7 +54,16 @@ namespace XeemAPI.Models
                 reviewer = value;
             }
         }
-        [DataMember]
+
+        [DataMember(Name ="CreatedDate")]
+        public string PublishedCreatedDate
+        {
+            get
+            {
+                return createdDate == null ? null : ((DateTime)createdDate).ToString("yyyy-MM-dd hh:mm:ss");
+            }
+        }
+        
         public DateTime? CreatedDate
         {
             get
