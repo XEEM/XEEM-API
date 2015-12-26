@@ -13,6 +13,7 @@ namespace XeemAPI.Models
         private float? rating;
         private string description;
         private User reviewer;
+        private DateTime? createdDate;
 
         [DataMember]
         public float? Rating
@@ -53,6 +54,19 @@ namespace XeemAPI.Models
                 reviewer = value;
             }
         }
+        [DataMember]
+        public DateTime? CreatedDate
+        {
+            get
+            {
+                return createdDate;
+            }
+
+            set
+            {
+                createdDate = value;
+            }
+        }
 
         public static explicit operator Review(Data.Review dto)
         {
@@ -63,6 +77,7 @@ namespace XeemAPI.Models
             result.rating = (float)dto.rating;
             result.description = dto.description;
             result.reviewer = (User)dto.User;
+            result.createdDate = dto.createdDate;
 
             return result;
         }
@@ -74,6 +89,7 @@ namespace XeemAPI.Models
             dto.rating = this.rating;
             dto.description = this.description;
             dto.userId = this.reviewer.Id;
+            dto.createdDate = this.createdDate;
 
             return dto;
         }
