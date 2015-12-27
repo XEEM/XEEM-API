@@ -37,5 +37,6 @@ namespace XeemAPI.Data
         public virtual DbSet<Transportation> Transportations { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<MaintainanceHistory> MaintainanceHistories { get; set; }
+        public virtual DbSet<TransportationPhoto> TransportationPhotos { get; set; }
     }
 }

@@ -31,6 +31,8 @@
         <AssociationConnector Association="Data.FK_MaintainanceHistory_Shop" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_Shop_User" ManuallyRouted="false" />
         <AssociationConnector Association="Data.FK_ShopQuotes_Shop" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Data.TransportationPhoto" Width="2" PointX="3" PointY="5" />
+        <AssociationConnector Association="Data.FK_TransportationPhotos_Transportation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

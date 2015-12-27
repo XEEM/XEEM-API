@@ -27,6 +27,7 @@ namespace XeemAPI.Models
         private string name;
         private TransportationType type;
         private List<Request> requests;
+        private List<string> imageUrls;
 
         [DataMember]
         public int Id
@@ -80,6 +81,19 @@ namespace XeemAPI.Models
                 requests = value;
             }
         }
+        [DataMember]
+        public List<string> ImageUrls
+        {
+            get
+            {
+                return imageUrls;
+            }
+
+            set
+            {
+                imageUrls = value;
+            }
+        }
 
         public static Transportation Convert(Data.CustomerTransportation dto)
         {
@@ -94,7 +108,13 @@ namespace XeemAPI.Models
             {
                 result.requests.Add(Models.Request.Convert(request));
             }
-            
+
+            result.imageUrls = new List<string>();
+            foreach(var image in dto.Transportation.TransportationPhotos)
+            {
+                result.imageUrls.Add(image.imageUrl);
+            }
+
             return result;
         }
 

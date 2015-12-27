@@ -18,6 +18,7 @@ namespace XeemAPI.Data
         public Transportation()
         {
             this.CustomerTransportations = new HashSet<CustomerTransportation>();
+            this.TransportationPhotos = new HashSet<TransportationPhoto>();
         }
     
         public int id { get; set; }
@@ -26,5 +27,7 @@ namespace XeemAPI.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerTransportation> CustomerTransportations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransportationPhoto> TransportationPhotos { get; set; }
     }
 }

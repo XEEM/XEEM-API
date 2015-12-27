@@ -118,6 +118,14 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="type" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="TransportationPhotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="transportationId" Type="int" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="id" />
@@ -304,6 +312,18 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TransportationPhotos_Transportation">
+          <End Role="Transportation" Type="Self.Transportation" Multiplicity="0..1" />
+          <End Role="TransportationPhotos" Type="Self.TransportationPhotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TransportationPhotos">
+              <PropertyRef Name="transportationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataStoreContainer">
           <EntitySet Name="CustomerTransportation" EntityType="Self.CustomerTransportation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favorite" EntityType="Self.Favorite" Schema="dbo" store:Type="Tables" />
@@ -315,6 +335,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <EntitySet Name="ShopQuotes" EntityType="Self.ShopQuotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemPrice" EntityType="Self.SystemPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transportation" EntityType="Self.Transportation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransportationPhotos" EntityType="Self.TransportationPhotos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaintainanceHistory" EntityType="Self.MaintainanceHistory" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -380,6 +401,10 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <AssociationSet Name="FK_ShopQuotes_Shop" Association="Self.FK_ShopQuotes_Shop">
             <End Role="Shop" EntitySet="Shop" />
             <End Role="ShopQuotes" EntitySet="ShopQuotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransportationPhotos_Transportation" Association="Self.FK_TransportationPhotos_Transportation">
+            <End Role="Transportation" EntitySet="Transportation" />
+            <End Role="TransportationPhotos" EntitySet="TransportationPhotos" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -506,6 +531,7 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="CustomerTransportations" Relationship="Self.FK_CustomerTransportation_Transportation" FromRole="Transportation" ToRole="CustomerTransportation" />
+          <NavigationProperty Name="TransportationPhotos" Relationship="Data.FK_TransportationPhotos_Transportation" FromRole="Transportation" ToRole="TransportationPhoto" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -780,7 +806,33 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
             <End Role="Shop" EntitySet="Shops" />
             <End Role="ShopQuotes" EntitySet="ShopQuotes" />
           </AssociationSet>
+          <EntitySet Name="TransportationPhotos" EntityType="Data.TransportationPhoto" />
+          <AssociationSet Name="FK_TransportationPhotos_Transportation" Association="Data.FK_TransportationPhotos_Transportation">
+            <End Role="Transportation" EntitySet="Transportations" />
+            <End Role="TransportationPhoto" EntitySet="TransportationPhotos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TransportationPhoto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imageUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="transportationId" Type="Int32" />
+          <NavigationProperty Name="Transportation" Relationship="Data.FK_TransportationPhotos_Transportation" FromRole="TransportationPhoto" ToRole="Transportation" />
+        </EntityType>
+        <Association Name="FK_TransportationPhotos_Transportation">
+          <End Type="Data.Transportation" Role="Transportation" Multiplicity="0..1" />
+          <End Type="Data.TransportationPhoto" Role="TransportationPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transportation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TransportationPhoto">
+              <PropertyRef Name="transportationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -919,6 +971,15 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />
                 <ScalarProperty Name="cost" ColumnName="cost" />
                 <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransportationPhotos">
+            <EntityTypeMapping TypeName="Data.TransportationPhoto">
+              <MappingFragment StoreEntitySet="TransportationPhotos">
+                <ScalarProperty Name="transportationId" ColumnName="transportationId" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
