@@ -141,7 +141,7 @@ namespace XeemAPI.Controllers
                 return NotFound();
             }
 
-            return Json(user);
+            return Ok(user);
         }
     }
 }

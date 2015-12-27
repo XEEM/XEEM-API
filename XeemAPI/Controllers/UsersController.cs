@@ -55,7 +55,12 @@ namespace XeemAPI.Controllers
             user.Email = request["email"];
             user.Phone = request["phone"];
             user.Password = request["password"];
-            user.Birthday = DateTime.Parse(request["birthday"]);
+
+            if(request["birthday"] != null)
+            {
+                user.Birthday = DateTime.Parse(request["birthday"]);
+            }
+            
             user.Name = request["name"];
             user.Address = request["address"];
             user.AvatarUrl = request["avatarUrl"];

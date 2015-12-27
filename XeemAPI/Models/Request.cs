@@ -9,13 +9,13 @@ namespace XeemAPI.Models
     [DataContract]
     public enum RequestStatus
     {
-        [EnumMember]
+        [EnumMember(Value ="W")]
         Waiting = 'W',
-        [EnumMember]
+        [EnumMember(Value = "A")]
         Accepted = 'A',
-        [EnumMember]
+        [EnumMember(Value = "F")]
         Finished = 'F',
-        [EnumMember]
+        [EnumMember(Value = "C")]
         Canceled = 'C'
     }
 

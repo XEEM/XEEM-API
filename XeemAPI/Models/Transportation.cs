@@ -10,13 +10,13 @@ namespace XeemAPI.Models
     [DataContract]
     public enum TransportationType
     {
-        [EnumMember]
+        [EnumMember(Value ="B")]
         Bike = 'B',
-        [EnumMember]
+        [EnumMember(Value ="C")]
         Car = 'C',
-        [EnumMember]
+        [EnumMember(Value ="S")]
         Scooter = 'S',
-        [EnumMember]
+        [EnumMember(Value ="M")]
         Motorbike = 'M'
     }
 
