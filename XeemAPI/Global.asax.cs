@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using XeemAPI.WebSocket;
 
 namespace XeemAPI
 {
@@ -12,6 +13,7 @@ namespace XeemAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            
         }
     }
 }
