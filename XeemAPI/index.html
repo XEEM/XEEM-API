@@ -24,7 +24,7 @@
     <script type="text/javascript">
         $(function () {
             // Declare a proxy to reference the hub.
-            $.connection.hub.url = "http://localhost:50697/request";
+            $.connection.hub.url = "http://xeem.apphb.com/request";
             var chat = $.connection.requestHub;
             // Create a function that the hub can call to broadcast messages.
             chat.client.broadcastMessage = function (name, message) {
