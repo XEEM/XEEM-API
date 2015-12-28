@@ -18,7 +18,7 @@ namespace XeemAPI.WebSocket
             //hubConfig.EnableJavaScriptProxies = false;
             hubConfig.EnableJSONP = true;
 
-            app.MapSignalR("/request", hubConfig);
+            app.MapSignalR(hubConfig);
         }
 
         string getTime()
