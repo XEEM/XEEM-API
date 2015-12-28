@@ -92,6 +92,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Avatars\hatu.jpg" />
+    <Content Include="Assets\Avatars\tuan.jpg" />
+    <Content Include="Assets\Trans\honda-dream-1.jpeg" />
+    <Content Include="Assets\Trans\honda-dream-2.jpg" />
+    <Content Include="Assets\Trans\honda-dream-3.jpg" />
+    <Content Include="Assets\Trans\honda-jazz-1.jpg" />
+    <Content Include="Assets\Trans\honda-jazz-2.jpg" />
+    <Content Include="Assets\Trans\honda-jazz-3.jpeg" />
+    <Content Include="Assets\Trans\honda-wavealpha-1.jpg" />
+    <Content Include="Assets\Trans\honda-wavealpha-2.jpg" />
+    <Content Include="Assets\Trans\honda-wavealpha-3.jpg" />
+    <Content Include="Assets\Trans\honda-wavers-1.png" />
+    <Content Include="Assets\Trans\honda-wavers-2.jpg" />
+    <Content Include="Assets\Trans\honda-wavers-3.png" />
+    <Content Include="Assets\Trans\hyundai-eon-1.jpg" />
+    <Content Include="Assets\Trans\hyundai-eon-2.jpg" />
+    <Content Include="Assets\Trans\hyundai-eon-3.jpg" />
+    <Content Include="Assets\Trans\ninja-h2-1.jpg" />
+    <Content Include="Assets\Trans\ninja-h2-2.jpg" />
+    <Content Include="Assets\Trans\ninja-h2-3.jpg" />
     <Content Include="Data\Xeem.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Xeem.edmx</DependentUpon>
@@ -199,7 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Trans\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
