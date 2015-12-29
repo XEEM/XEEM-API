@@ -44,6 +44,7 @@ namespace XeemAPI.Models
         private List<Quote> quotes;
         private float rating;
         private bool isFavorited;
+        private List<Request> requests;
 
         [DataMember]
         public int Id
@@ -227,7 +228,7 @@ namespace XeemAPI.Models
                 rating = value;
             }
         }
-
+        [DataMember]
         public bool IsFavorited
         {
             get
@@ -238,6 +239,19 @@ namespace XeemAPI.Models
             set
             {
                 isFavorited = value;
+            }
+        }
+        [DataMember]
+        public List<Request> Requests
+        {
+            get
+            {
+                return requests;
+            }
+
+            set
+            {
+                requests = value;
             }
         }
 
@@ -273,7 +287,12 @@ namespace XeemAPI.Models
 
             result.rating = (float)result.reviews.Select(r => r.Rating).DefaultIfEmpty(0).Average();
             result.isFavorited = dto.Favorites.Where(f => f.userId == userId).Count() == 1;
-            
+
+            result.requests = new List<Models.Request>();
+            foreach (var request in dto.Requests)
+            {
+                result.requests.Add(Models.Request.Convert(request));
+            }
             return result;
         }
 
@@ -399,6 +418,23 @@ namespace XeemAPI.Models
             }
         }
 
-        
+        public static Shop[] GetShopsByUserId(int userId)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var q = from s in context.Shops
+                            where s.ownerId == userId
+                            select s;
+
+                    var result = Array.ConvertAll(q.ToArray(), item => Convert(item, userId));
+                    return result;
+                }
+            }catch(Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

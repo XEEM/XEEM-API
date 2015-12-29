@@ -14,6 +14,23 @@ namespace XeemAPI.Controllers
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
+        [Route("shops/")]
+        [HttpGet]
+        public IHttpActionResult GetShop()
+        {
+            var request = HttpContext.Current.Request;
+            var token = request["api_token"];
+            int id;
+
+            if (!int.TryParse(token, out id))
+            {
+                return Unauthorized();
+            }
+
+            var shops = Shop.GetShopsByUserId(id);
+            return Ok(shops);
+        }
+
         [Route("trans/")]
         [HttpPut]
         public IHttpActionResult AddNewTransportation()
