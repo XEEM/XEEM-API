@@ -354,13 +354,18 @@ namespace XeemAPI.Models
             }
         }
 
-        public static string Request(int customerTransId, int shopId)
+        public static string Request(int userId, int transportationId, int shopId)
         {
             var request = new Data.Request();
             try
             {
                 using (var context = new XeemEntities())
                 {
+                    var q = from t in context.CustomerTransportations
+                            where t.userId == userId && t.transId == transportationId
+                            select t.id;
+
+                    int customerTransId = q.First();
                     request.userTransId = customerTransId;
                     request.shopId = shopId;
                     request.createdDate = DateTime.Now;

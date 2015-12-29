@@ -59,7 +59,7 @@ namespace XeemAPI.Controllers
                 return Unauthorized();
             }
 
-            string requestToken = Shop.Request(userId, shopId);
+            string requestToken = Shop.Request(userId, 0, shopId);
 
             if(requestToken == null)
             {
