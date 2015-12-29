@@ -31,7 +31,7 @@ namespace XeemAPI.Controllers
 
         [Route("")]
         [HttpPut]
-        public IHttpActionResult RequestShop(string api_token, int shop_id, int transportation_id)
+        public IHttpActionResult RequestShop(string api_token, int shop_id, int transportation_id, decimal latitude, decimal longitude, string description=null)
         {
             var request = HttpContext.Current.Request;
 
@@ -41,7 +41,7 @@ namespace XeemAPI.Controllers
                 return Unauthorized();
             }
 
-            string requestToken = Shop.Request(userId, transportation_id, shop_id);
+            string requestToken = Shop.Request(userId, transportation_id, shop_id, latitude, longitude, description);
 
             if (requestToken == null)
             {
@@ -49,6 +49,23 @@ namespace XeemAPI.Controllers
             }
 
             return Ok(requestToken);
+        }
+
+        [Route("{request_id}/accept")]
+        [HttpPost]
+        public IHttpActionResult AcceptRequest(string api_token, int request_id)
+        {
+            var request = HttpContext.Current.Request;
+
+            int userId;
+            if (!int.TryParse(api_token, out userId))
+            {
+                return Unauthorized();
+            }
+
+
+
+            return Ok();
         }
     }
 }

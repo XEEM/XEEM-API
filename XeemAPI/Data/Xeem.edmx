@@ -64,6 +64,9 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="createdDate" Type="date" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status" Type="char" MaxLength="1" />
+          <Property Name="latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -466,6 +469,9 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="CustomerTransportation" Relationship="Self.FK_Request_CustomerTransportation" FromRole="Request" ToRole="CustomerTransportation" />
           <NavigationProperty Name="Shop" Relationship="Self.FK_Request_Shop" FromRole="Request" ToRole="Shop" />
+          <Property Name="latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -881,6 +887,9 @@ warning 6002: The table/view 'db0834ad76ea7144d28a47a56d010ed566.dbo.Maintainanc
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="Data.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
                 <ScalarProperty Name="userTransId" ColumnName="userTransId" />
                 <ScalarProperty Name="shopId" ColumnName="shopId" />
                 <ScalarProperty Name="createdDate" ColumnName="createdDate" />

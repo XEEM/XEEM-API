@@ -19,6 +19,9 @@ namespace XeemAPI.Data
         public Nullable<System.DateTime> createdDate { get; set; }
         public int id { get; set; }
         public string status { get; set; }
+        public Nullable<decimal> latitude { get; set; }
+        public Nullable<decimal> longitude { get; set; }
+        public string description { get; set; }
     
         public virtual CustomerTransportation CustomerTransportation { get; set; }
         public virtual Shop Shop { get; set; }

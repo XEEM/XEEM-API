@@ -354,7 +354,7 @@ namespace XeemAPI.Models
             }
         }
 
-        public static string Request(int userId, int transportationId, int shopId)
+        public static string Request(int userId, int transportationId, int shopId, decimal latitude, decimal longitude, string description)
         {
             var request = new Data.Request();
             try
@@ -368,6 +368,9 @@ namespace XeemAPI.Models
                     int customerTransId = q.First();
                     request.userTransId = customerTransId;
                     request.shopId = shopId;
+                    request.latitude = latitude;
+                    request.longitude = longitude;
+                    request.description = description;
                     request.createdDate = DateTime.Now;
                     request.status = new string((char)RequestStatus.Waiting, 1);
                     
