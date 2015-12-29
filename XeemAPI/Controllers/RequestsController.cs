@@ -63,9 +63,13 @@ namespace XeemAPI.Controllers
                 return Unauthorized();
             }
 
+            var basicRequest = Shop.AcceptRequest(request_id);
+            if (basicRequest == null)
+            {
+                return InternalServerError();
+            }
 
-
-            return Ok();
+            return Ok(basicRequest);
         }
     }
 }

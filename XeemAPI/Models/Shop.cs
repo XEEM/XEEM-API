@@ -406,7 +406,7 @@ namespace XeemAPI.Models
             }
         }
 
-        public static User AcceptRequest(int requestToken)
+        public static BasicRequest AcceptRequest(int requestToken)
         {
             try
             {
@@ -414,10 +414,10 @@ namespace XeemAPI.Models
                 {
                     var request = context.Requests.Find(requestToken);
                     request.status = new string((char)RequestStatus.Accepted, 1);
-                    var user = (User)request.CustomerTransportation.User;
+                    
                     context.SaveChanges();
 
-                    return user;
+                    return new BasicRequest(request);
                 }
             }
             catch (Exception e)
