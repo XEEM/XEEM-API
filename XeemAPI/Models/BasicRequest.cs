@@ -14,8 +14,8 @@ namespace XeemAPI.Models
         private RequestStatus status;
         private int repairShopId;
         private int requestUserId;
-        private decimal longitude;
-        private decimal latitude;
+        private decimal? longitude;
+        private decimal? latitude;
         private BasicTransportation transportation;
         private string description;
 
@@ -85,7 +85,7 @@ namespace XeemAPI.Models
             }
         }
         [DataMember]
-        public decimal Longitude
+        public decimal? Longitude
         {
             get
             {
@@ -98,7 +98,7 @@ namespace XeemAPI.Models
             }
         }
         [DataMember]
-        public decimal Latitude
+        public decimal? Latitude
         {
             get
             {
@@ -131,8 +131,8 @@ namespace XeemAPI.Models
             this.Status = (RequestStatus)dto.status[0];
             this.RepairShopId = (int)dto.shopId;
             this.RequestUserId = (int)dto.CustomerTransportation.userId;
-            this.latitude = (decimal)dto.latitude;
-            this.longitude = (decimal)dto.longitude;
+            this.latitude = dto.latitude;
+            this.longitude = dto.longitude;
             this.description = dto.description;
 
             this.transportation = BasicTransportation.Convert(dto.CustomerTransportation);
