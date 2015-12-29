@@ -16,7 +16,7 @@ namespace XeemAPI.Controllers
     {
         [Route("shops/")]
         [HttpGet]
-        public IHttpActionResult GetShop()
+        public IHttpActionResult GetShops()
         {
             var request = HttpContext.Current.Request;
             var token = request["api_token"];
@@ -27,7 +27,7 @@ namespace XeemAPI.Controllers
                 return Unauthorized();
             }
 
-            var shops = Shop.GetShopsByUserId(id);
+            var shops = BasicShop.GetShopsByOwnerId(id);
             return Ok(shops);
         }
 

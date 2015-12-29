@@ -7,14 +7,13 @@ using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
-    [DataContract]
-    public class Transportation
+    public class ShopTransportation
     {
         private int id;
         private string name;
         private TransportationType type;
-        private List<Request> requests;
         private List<string> imageUrls;
+        private User owner;
 
         [DataMember]
         public int Id
@@ -56,19 +55,6 @@ namespace XeemAPI.Models
             }
         }
         [DataMember]
-        public List<Request> Requests
-        {
-            get
-            {
-                return requests;
-            }
-
-            set
-            {
-                requests = value;
-            }
-        }
-        [DataMember]
         public List<string> ImageUrls
         {
             get
@@ -81,26 +67,35 @@ namespace XeemAPI.Models
                 imageUrls = value;
             }
         }
-
-        public static Transportation Convert(Data.CustomerTransportation dto)
+        [DataMember]
+        public User Owner
         {
-            var result = new Transportation();
+            get
+            {
+                return owner;
+            }
+
+            set
+            {
+                owner = value;
+            }
+        }
+
+        public static ShopTransportation Convert(Data.CustomerTransportation dto)
+        {
+            var result = new ShopTransportation();
 
             result.Id = dto.id;
             result.Name = dto.Transportation.name;
             result.Type = (TransportationType)dto.Transportation.type[0];
-            result.requests = new List<Models.Request>();
-            
-            foreach(var request in dto.Requests)
-            {
-                result.requests.Add(Models.Request.Convert(request));
-            }
 
             result.imageUrls = new List<string>();
-            foreach(var image in dto.Transportation.TransportationPhotos)
+            foreach (var image in dto.Transportation.TransportationPhotos)
             {
                 result.imageUrls.Add(image.imageUrl);
             }
+
+            result.owner = (User)dto.User;
 
             return result;
         }
@@ -117,14 +112,14 @@ namespace XeemAPI.Models
 
         public static Transportation[] GetUserTransportations(int userId)
         {
-            using(var context = new XeemEntities())
+            using (var context = new XeemEntities())
             {
                 var q = from t in context.Transportations
                         join u in context.CustomerTransportations on t.id equals u.id
                         where u.userId == userId
                         select t;
 
-                        
+
             }
 
             return null;
