@@ -18,7 +18,7 @@ namespace XeemAPI.Models
         private decimal? latitude;
         private BasicTransportation transportation;
         private string description;
-
+        private ShopForRequest repairShop;
         [DataMember]
         public int Id
         {
@@ -123,6 +123,19 @@ namespace XeemAPI.Models
                 transportation = value;
             }
         }
+        [DataMember]
+        public ShopForRequest RepairShop
+        {
+            get
+            {
+                return repairShop;
+            }
+
+            set
+            {
+                repairShop = value;
+            }
+        }
 
         public BasicRequest(Data.Request dto)
         {
@@ -134,7 +147,7 @@ namespace XeemAPI.Models
             this.latitude = dto.latitude;
             this.longitude = dto.longitude;
             this.description = dto.description;
-
+            this.repairShop = ShopForRequest.Convert(dto.Shop);
             this.transportation = BasicTransportation.Convert(dto.CustomerTransportation);
         }
 
