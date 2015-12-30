@@ -406,6 +406,22 @@ namespace XeemAPI.Models
             }
         }
 
+        public static BasicRequest GetRequestById(int requestToken)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var request = context.Requests.Find(requestToken);
+
+                    return new BasicRequest(request);
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public static BasicRequest AcceptRequest(int requestToken)
         {
             try

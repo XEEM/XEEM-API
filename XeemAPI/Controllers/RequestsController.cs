@@ -31,15 +31,39 @@ namespace XeemAPI.Controllers
 
         [Route("")]
         [HttpPut]
-        public IHttpActionResult RequestShop(string api_token, int shop_id, int transportation_id, decimal latitude, decimal longitude, string description=null)
+        public IHttpActionResult RequestShop()
         {
             var request = HttpContext.Current.Request;
-
+            var api_token = request["api_token"];
             int userId;
             if (!int.TryParse(api_token, out userId))
             {
                 return Unauthorized();
             }
+
+            var temp = request["shop_id"];
+            int shop_id;
+            if (!int.TryParse(temp, out shop_id))
+                return BadRequest();
+
+            temp = request["transportation_id"];
+            int transportation_id;
+            if (!int.TryParse(temp, out transportation_id))
+                return BadRequest();
+
+            temp = request["latitude"];
+            decimal latitude;
+            if (!decimal.TryParse(temp, out latitude))
+                return BadRequest();
+
+            temp = request["longitude"];
+            decimal longitude;
+            if (!decimal.TryParse(temp, out longitude))
+                return BadRequest();
+
+            var description = request["description"];
+            if (description == null)
+                return BadRequest();
 
             string requestToken = Shop.Request(userId, transportation_id, shop_id, latitude, longitude, description);
 
@@ -64,6 +88,27 @@ namespace XeemAPI.Controllers
             }
 
             var basicRequest = Shop.AcceptRequest(request_id);
+            if (basicRequest == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(basicRequest);
+        }
+
+        [Route("{request_id}")]
+        [HttpGet]
+        public IHttpActionResult GetRequestStatus(int request_id)
+        {
+            var request = HttpContext.Current.Request;
+            var api_token = request["api_token"];
+            int userId;
+            if (!int.TryParse(api_token, out userId))
+            {
+                return Unauthorized();
+            }
+
+            var basicRequest = Shop.GetRequestById(request_id);
             if (basicRequest == null)
             {
                 return InternalServerError();
