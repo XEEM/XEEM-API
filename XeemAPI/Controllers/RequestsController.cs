@@ -96,6 +96,32 @@ namespace XeemAPI.Controllers
             return Ok(basicRequest);
         }
 
+        [Route("{request_id}/confirm")]
+        [HttpPost]
+        public IHttpActionResult ConfirmShop(int request_id)
+        {
+            var request = HttpContext.Current.Request;
+            var api_token = request["api_token"];
+            int userId;
+            if (!int.TryParse(api_token, out userId))
+            {
+                return Unauthorized();
+            }
+
+            var temp = request["shop_id"];
+            int shopId;
+            if (!int.TryParse(temp, out shopId))
+                return BadRequest();
+
+            var basicRequest = Shop.GetRequestById(request_id);
+            if (basicRequest == null)
+            {
+                return InternalServerError();
+            }
+
+            return Ok(basicRequest);
+        }
+
         [Route("{request_id}")]
         [HttpGet]
         public IHttpActionResult GetRequestStatus(int request_id)
