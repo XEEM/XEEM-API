@@ -53,10 +53,10 @@ namespace XeemAPI.Controllers
 
         [Route("{request_id}/accept")]
         [HttpPost]
-        public IHttpActionResult AcceptRequest(string api_token, int request_id)
+        public IHttpActionResult AcceptRequest(int request_id)
         {
             var request = HttpContext.Current.Request;
-
+            var api_token = request["api_token"];
             int userId;
             if (!int.TryParse(api_token, out userId))
             {
