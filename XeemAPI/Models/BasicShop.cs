@@ -25,6 +25,9 @@ namespace XeemAPI.Models
         private float rating;
         private bool isFavorited;
         private List<BasicRequest> requests;
+        private List<BasicRequest> canceledRequests;
+        private List<BasicRequest> acceptedRequests;
+        private List<BasicRequest> finishedRequests;
 
         [DataMember]
         public int Id
@@ -234,6 +237,45 @@ namespace XeemAPI.Models
                 requests = value;
             }
         }
+        [DataMember]
+        public List<BasicRequest> CanceledRequests
+        {
+            get
+            {
+                return canceledRequests;
+            }
+
+            set
+            {
+                canceledRequests = value;
+            }
+        }
+        [DataMember]
+        public List<BasicRequest> AcceptedRequests
+        {
+            get
+            {
+                return acceptedRequests;
+            }
+
+            set
+            {
+                acceptedRequests = value;
+            }
+        }
+        [DataMember]
+        public List<BasicRequest> FinishedRequests
+        {
+            get
+            {
+                return finishedRequests;
+            }
+
+            set
+            {
+                finishedRequests = value;
+            }
+        }
 
         public static BasicShop Convert(Data.Shop dto)
         {
@@ -262,15 +304,41 @@ namespace XeemAPI.Models
             result.reviews = new List<Review>();
             foreach (var dtoReview in dto.Reviews)
             {
+
                 result.reviews.Add((Review)dtoReview);
             }
 
             result.rating = (float)result.reviews.Select(r => r.Rating).DefaultIfEmpty(0).Average();
            
             result.requests = new List<BasicRequest>();
+            result.acceptedRequests = new List<BasicRequest>();
+            result.canceledRequests = new List<BasicRequest>();
+            result.finishedRequests = new List<BasicRequest>();
+
             foreach (var request in dto.Requests)
             {
-                result.requests.Add(new BasicRequest(request));
+                var r = new BasicRequest(request);
+                switch (request.status[0])
+                {
+                    case (char)RequestStatus.Waiting:
+                        result.requests.Add(r);
+                        break;
+
+                    case (char)RequestStatus.Canceled:
+                        result.canceledRequests.Add(r);
+                        break;
+
+                    case (char)RequestStatus.Finished:
+                        result.finishedRequests.Add(r);
+                        break;
+
+                    case (char)RequestStatus.Accepted:
+                        result.acceptedRequests.Add(r);
+                        break;
+                    default:
+                        break;
+                }
+                
             }
             return result;
         }

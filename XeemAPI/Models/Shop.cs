@@ -472,6 +472,8 @@ namespace XeemAPI.Models
                             select s;
 
                     var result = Array.ConvertAll(q.ToArray(), item => Convert(item, userId));
+
+
                     return result;
                 }
             }catch(Exception e)
