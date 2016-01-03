@@ -406,6 +406,25 @@ namespace XeemAPI.Models
             }
         }
 
+        public static BasicRequest CancelRequest(int requestId)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var request = context.Requests.Find(requestId);
+                    request.status = new string((char)RequestStatus.Canceled, 1);
+
+                    return new BasicRequest(request);
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+
         public static BasicRequest GetRequestById(int requestToken)
         {
             try

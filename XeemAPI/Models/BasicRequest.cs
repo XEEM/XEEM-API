@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
+using XeemAPI.Data;
 
 namespace XeemAPI.Models
 {
@@ -154,6 +155,26 @@ namespace XeemAPI.Models
         public BasicRequest()
         {
 
+        }
+
+        public static BasicRequest[] GetRequestsOfShopOwner(int ownerId)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var q = from r in context.Requests
+                            where r.Shop.ownerId == ownerId
+                            select r;
+
+                    var result = Array.ConvertAll(q.ToArray(), item => new BasicRequest(item));
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

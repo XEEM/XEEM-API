@@ -280,11 +280,13 @@ namespace XeemAPI.Models
             {
                 using (var context = new Data.XeemEntities())
                 {
-                    var q = from s in context.Shops
+                    var q = from s in context.Shops 
                             where s.ownerId == ownerId
                             select s;
 
                     var result = Array.ConvertAll(q.ToArray(), item => Convert(item));
+
+                    
                     return result;
                 }
             }
