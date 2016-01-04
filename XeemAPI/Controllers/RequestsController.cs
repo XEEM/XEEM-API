@@ -96,9 +96,9 @@ namespace XeemAPI.Controllers
             return Ok(basicRequest);
         }
 
-        [Route("{request_id}/confirm")]
+        [Route("{request_id}/finish")]
         [HttpPost]
-        public IHttpActionResult ConfirmShop(int request_id)
+        public IHttpActionResult FinishRequest(int request_id)
         {
             var request = HttpContext.Current.Request;
             var api_token = request["api_token"];
@@ -113,7 +113,7 @@ namespace XeemAPI.Controllers
             if (!int.TryParse(temp, out shopId))
                 return BadRequest();
 
-            var basicRequest = Shop.GetRequestById(request_id);
+            var basicRequest = Shop.FinishRequest(request_id);
             if (basicRequest == null)
             {
                 return InternalServerError();

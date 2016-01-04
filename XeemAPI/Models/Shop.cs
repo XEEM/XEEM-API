@@ -432,6 +432,13 @@ namespace XeemAPI.Models
                 using (var context = new XeemEntities())
                 {
                     var request = context.Requests.Find(requestToken);
+                    var distanceDate = DateTime.Now - (DateTime)request.createdDate;
+                   
+                    if(distanceDate.Minutes >= 2)
+                    {
+                        request.status = new string((char)RequestStatus.Canceled, 1);
+                        context.SaveChanges();
+                    }
 
                     return new BasicRequest(request);
                 }
@@ -460,7 +467,25 @@ namespace XeemAPI.Models
                 return null;
             }
         }
+        public static BasicRequest FinishRequest(int requestToken)
+        {
+            try
+            {
+                using (var context = new XeemEntities())
+                {
+                    var request = context.Requests.Find(requestToken);
+                    request.status = new string((char)RequestStatus.Finished, 1);
 
+                    context.SaveChanges();
+
+                    return new BasicRequest(request);
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public static Shop[] GetShopsByUserId(int userId)
         {
             try
