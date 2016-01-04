@@ -414,7 +414,7 @@ namespace XeemAPI.Models
                 {
                     var request = context.Requests.Find(requestId);
                     request.status = new string((char)RequestStatus.Canceled, 1);
-
+                    context.SaveChanges();
                     return new BasicRequest(request);
                 }
             }
@@ -455,10 +455,17 @@ namespace XeemAPI.Models
                 using (var context = new XeemEntities())
                 {
                     var request = context.Requests.Find(requestToken);
-                    request.status = new string((char)RequestStatus.Accepted, 1);
-                    
-                    context.SaveChanges();
 
+                    if (((char)RequestStatus.Waiting).Equals(request.status[0]))
+                    {
+                        request.status = new string((char)RequestStatus.Accepted, 1);
+
+                        context.SaveChanges();
+                    }else
+                    {
+                        return null;
+                    }
+                    
                     return new BasicRequest(request);
                 }
             }
