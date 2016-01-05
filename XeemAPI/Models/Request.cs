@@ -18,14 +18,14 @@ namespace XeemAPI.Models
         [EnumMember(Value = "C")]
         Canceled = 'C'
     }
-
+    [DataContract]
     public class Request
     {
         private int id;
         private DateTime? createdDate;
         private RequestStatus status;
         private int repairShopId;
-
+        [DataMember]
         public int Id
         {
             get
@@ -38,20 +38,16 @@ namespace XeemAPI.Models
                 id = value;
             }
         }
-
-        public DateTime? CreatedDate
+        [DataMember(Name = "CreatedDate")]
+        public string PublishedCreatedDate
         {
             get
             {
-                return createdDate;
-            }
-
-            set
-            {
-                createdDate = value;
+                return createdDate == null ? null : ((DateTime)createdDate).ToString("yyyy-MM-ddThh:mm:ss");
             }
         }
 
+        [DataMember]
         public RequestStatus Status
         {
             get
@@ -64,7 +60,7 @@ namespace XeemAPI.Models
                 status = value;
             }
         }
-
+        [DataMember]
         public int RepairShopId
         {
             get
@@ -82,7 +78,7 @@ namespace XeemAPI.Models
         {
             var temp = new Models.Request();
             temp.Id = dto.id;
-            temp.CreatedDate = dto.createdDate;
+            temp.createdDate = dto.createdDate;
             temp.Status = (RequestStatus)dto.status[0];
             temp.RepairShopId = (int)dto.shopId;
 

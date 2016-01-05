@@ -33,19 +33,15 @@ namespace XeemAPI.Models
                 id = value;
             }
         }
-        [DataMember]
-        public DateTime? CreatedDate
+        [DataMember(Name = "CreatedDate")]
+        public string PublishedCreatedDate
         {
             get
             {
-                return createdDate;
-            }
-
-            set
-            {
-                createdDate = value;
+                return createdDate == null ? null : ((DateTime)createdDate).ToString("yyyy-MM-ddThh:mm:ss");
             }
         }
+        
         [DataMember]
         public RequestStatus Status
         {
@@ -141,7 +137,7 @@ namespace XeemAPI.Models
         public BasicRequest(Data.Request dto)
         {
             this.Id = dto.id;
-            this.CreatedDate = dto.createdDate;
+            this.createdDate = dto.createdDate;
             this.Status = (RequestStatus)dto.status[0];
             this.RepairShopId = (int)dto.shopId;
             this.RequestUserId = (int)dto.CustomerTransportation.userId;

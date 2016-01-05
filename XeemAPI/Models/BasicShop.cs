@@ -133,7 +133,15 @@ namespace XeemAPI.Models
                 avatarUrl = value;
             }
         }
-        [DataMember]
+        [DataMember(Name = "CreatedDate")]
+        public string PublishedCreatedDate
+        {
+            get
+            {
+                return createdDate == null ? null : ((DateTime)createdDate).ToString("yyyy-MM-ddThh:mm:ss");
+            }
+        }
+       
         public DateTime? CreatedDate
         {
             get
