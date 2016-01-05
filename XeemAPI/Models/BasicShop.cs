@@ -237,45 +237,45 @@ namespace XeemAPI.Models
                 requests = value;
             }
         }
-        [DataMember]
-        public List<BasicRequest> CanceledRequests
-        {
-            get
-            {
-                return canceledRequests;
-            }
+        //[DataMember]
+        //public List<BasicRequest> CanceledRequests
+        //{
+        //    get
+        //    {
+        //        return canceledRequests;
+        //    }
 
-            set
-            {
-                canceledRequests = value;
-            }
-        }
-        [DataMember]
-        public List<BasicRequest> AcceptedRequests
-        {
-            get
-            {
-                return acceptedRequests;
-            }
+        //    set
+        //    {
+        //        canceledRequests = value;
+        //    }
+        //}
+        //[DataMember]
+        //public List<BasicRequest> AcceptedRequests
+        //{
+        //    get
+        //    {
+        //        return acceptedRequests;
+        //    }
 
-            set
-            {
-                acceptedRequests = value;
-            }
-        }
-        [DataMember]
-        public List<BasicRequest> FinishedRequests
-        {
-            get
-            {
-                return finishedRequests;
-            }
+        //    set
+        //    {
+        //        acceptedRequests = value;
+        //    }
+        //}
+        //[DataMember]
+        //public List<BasicRequest> FinishedRequests
+        //{
+        //    get
+        //    {
+        //        return finishedRequests;
+        //    }
 
-            set
-            {
-                finishedRequests = value;
-            }
-        }
+        //    set
+        //    {
+        //        finishedRequests = value;
+        //    }
+        //}
 
         public static BasicShop Convert(Data.Shop dto)
         {
