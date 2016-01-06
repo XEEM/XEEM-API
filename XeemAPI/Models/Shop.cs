@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
@@ -164,6 +166,7 @@ namespace XeemAPI.Models
             }
         }
         [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
         public ShopType Type
         {
             get
@@ -357,14 +360,17 @@ namespace XeemAPI.Models
         public static string Request(int userId, int transportationId, int shopId, decimal latitude, decimal longitude, string description)
         {
             var request = new Data.Request();
+            BasicRequest result = null;
             try
             {
                 using (var context = new XeemEntities())
                 {
+                    //context.Configuration.LazyLoadingEnabled = true;
+
                     var q = from t in context.CustomerTransportations
                             where t.userId == userId && t.transId == transportationId
                             select t.id;
-
+                    
                     int customerTransId = q.First();
                     request.userTransId = customerTransId;
                     request.shopId = shopId;
@@ -376,6 +382,8 @@ namespace XeemAPI.Models
                     
                     context.Requests.Add(request);
                     context.SaveChanges();
+
+                    return request.id.ToString();
                 }
             }
             catch(Exception e)
@@ -383,7 +391,7 @@ namespace XeemAPI.Models
                 return null;
             }
 
-            return request.id.ToString();
+            
         }
 
         public static RequestStatus? GetShopRequestStatus(int requestId)

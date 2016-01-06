@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -38,11 +40,13 @@ namespace XeemAPI.Models
         {
             get
             {
-                return createdDate == null ? null : ((DateTime)createdDate).ToString("yyyy-MM-ddThh:mm:ss");
+                var result = createdDate == null ? null : ((DateTime)createdDate).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ss");
+                return result;
             }
         }
         
         [DataMember]
+        [JsonConverter(typeof(StringEnumConverter))]
         public RequestStatus Status
         {
             get
@@ -133,6 +137,19 @@ namespace XeemAPI.Models
                 repairShop = value;
             }
         }
+        [DataMember]
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+
+            set
+            {
+                description = value;
+            }
+        }
 
         public BasicRequest(Data.Request dto)
         {
@@ -143,7 +160,7 @@ namespace XeemAPI.Models
             this.RequestUserId = (int)dto.CustomerTransportation.userId;
             this.latitude = dto.latitude;
             this.longitude = dto.longitude;
-            this.description = dto.description;
+            this.Description = dto.description;
             this.repairShop = ShopForRequest.Convert(dto.Shop);
             this.transportation = BasicTransportation.Convert(dto.CustomerTransportation);
         }

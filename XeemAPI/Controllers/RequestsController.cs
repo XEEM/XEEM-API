@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using XeemAPI.Models;
@@ -31,7 +34,7 @@ namespace XeemAPI.Controllers
 
         [Route("")]
         [HttpPut]
-        public IHttpActionResult RequestShop()
+        public async Task<IHttpActionResult>  RequestShop()
         {
             var request = HttpContext.Current.Request;
             var api_token = request["api_token"];
@@ -65,14 +68,42 @@ namespace XeemAPI.Controllers
             if (description == null)
                 return BadRequest();
 
-            string requestToken = Shop.Request(userId, transportation_id, shop_id, latitude, longitude, description);
+            var requestToken = Shop.Request(userId, transportation_id, shop_id, latitude, longitude, description);
 
             if (requestToken == null)
             {
                 return InternalServerError();
             }
 
+            await SendNotificationRequestSent(requestToken, userId);
             return Ok(requestToken);
+        }
+
+        private async Task<bool> SendNotificationRequestSent(string requestToken, int userId)
+        {
+            var pushServerUrl = "http://xeem-push-server.herokuapp.com";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(pushServerUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var urlBuilder = new StringBuilder();
+                urlBuilder.AppendFormat("requestSent?userId={0}&requestId={1}", userId, requestToken);
+                // New code:
+                HttpResponseMessage response = await client.GetAsync(urlBuilder.ToString());
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+                var request = Shop.GetRequestById(int.Parse(requestToken));
+                //response = await client.PostAsync(urlBuilder.ToString(), )
+                response = await client.PostAsJsonAsync<BasicRequest>(urlBuilder.ToString(), request);
+                return false;
+            }
         }
 
         [Route("{request_id}/accept")]
