@@ -101,7 +101,7 @@ namespace XeemAPI.Controllers
 
         [Route("{request_id}/accept")]
         [HttpPost]
-        public IHttpActionResult AcceptRequest(int request_id)
+        public async Task<IHttpActionResult> AcceptRequest(int request_id)
         {
             var request = HttpContext.Current.Request;
             var api_token = request["api_token"];
@@ -148,7 +148,7 @@ namespace XeemAPI.Controllers
 
         [Route("{request_id}/cancel")]
         [HttpPost]
-        public IHttpActionResult CancelRequest(int request_id)
+        public async Task<IHttpActionResult> CancelRequest(int request_id)
         {
             var request = HttpContext.Current.Request;
             var api_token = request["api_token"];
@@ -169,12 +169,14 @@ namespace XeemAPI.Controllers
                 return InternalServerError();
             }
 
+            // cancel by user tap cancel
+            await SendCancelNotification(basicRequest.Id.ToString(), userId);
             return Ok(basicRequest);
         }
 
         [Route("{request_id}")]
         [HttpGet]
-        public IHttpActionResult GetRequestStatus(int request_id)
+        public async Task<IHttpActionResult> GetRequestStatus(int request_id)
         {
             var request = HttpContext.Current.Request;
             var api_token = request["api_token"];
@@ -190,7 +192,32 @@ namespace XeemAPI.Controllers
                 return InternalServerError();
             }
 
+            // send cancel by timeout
+            if(basicRequest.Status == RequestStatus.Canceled)
+            {
+                await SendCancelNotification(basicRequest.Id.ToString(), userId);
+            }
+
             return Ok(basicRequest);
+        }
+
+        private async Task<bool> SendCancelNotification(string requestToken, int userId)
+        {
+            var pushServerUrl = "http://xeem-push-server.herokuapp.com";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(pushServerUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var request = Shop.GetRequestById(int.Parse(requestToken));
+
+                var urlBuilder = new StringBuilder();
+                urlBuilder.AppendFormat("cancel?userId={0}&requestId={1}", request.RepairShop.Owner.Id, requestToken);
+
+                var response = await client.PostAsJsonAsync<BasicRequest>(urlBuilder.ToString(), request);
+                return false;
+            }
         }
     }
 }
