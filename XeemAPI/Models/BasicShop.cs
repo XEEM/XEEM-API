@@ -235,19 +235,19 @@ namespace XeemAPI.Models
                 isFavorited = value;
             }
         }
-        [DataMember]
-        public List<BasicRequest> Requests
-        {
-            get
-            {
-                return requests;
-            }
+        //[DataMember]
+        //public List<BasicRequest> Requests
+        //{
+        //    get
+        //    {
+        //        return requests;
+        //    }
 
-            set
-            {
-                requests = value;
-            }
-        }
+        //    set
+        //    {
+        //        requests = value;
+        //    }
+        //}
         //[DataMember]
         //public List<BasicRequest> CanceledRequests
         //{

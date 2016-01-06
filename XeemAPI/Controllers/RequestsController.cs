@@ -92,17 +92,9 @@ namespace XeemAPI.Controllers
 
                 var urlBuilder = new StringBuilder();
                 urlBuilder.AppendFormat("requestSent?userId={0}&requestId={1}", request.RepairShop.Owner.Id, requestToken);
-                // New code:
-                HttpResponseMessage response = await client.GetAsync(urlBuilder.ToString());
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-
-                
+               
                 //response = await client.PostAsync(urlBuilder.ToString(), )
-                response = await client.PostAsJsonAsync<BasicRequest>(urlBuilder.ToString(), request);
+                var response = await client.PostAsJsonAsync<BasicRequest>(urlBuilder.ToString(), request);
                 return false;
             }
         }
