@@ -88,9 +88,10 @@ namespace XeemAPI.Controllers
                 client.BaseAddress = new Uri(pushServerUrl);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var request = Shop.GetRequestById(int.Parse(requestToken));
 
                 var urlBuilder = new StringBuilder();
-                urlBuilder.AppendFormat("requestSent?userId={0}&requestId={1}", userId, requestToken);
+                urlBuilder.AppendFormat("requestSent?userId={0}&requestId={1}", request.RepairShop.Owner.Id, requestToken);
                 // New code:
                 HttpResponseMessage response = await client.GetAsync(urlBuilder.ToString());
 
@@ -99,7 +100,7 @@ namespace XeemAPI.Controllers
                     return true;
                 }
 
-                var request = Shop.GetRequestById(int.Parse(requestToken));
+                
                 //response = await client.PostAsync(urlBuilder.ToString(), )
                 response = await client.PostAsJsonAsync<BasicRequest>(urlBuilder.ToString(), request);
                 return false;
